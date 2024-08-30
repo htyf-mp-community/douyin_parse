@@ -20769,10 +20769,10 @@ tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   resolved "https://registry.npmmirror.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
   integrity sha512-KXXFFdAbFXY4geFIwoyNK+f5Z1b7swfXABfL7HXCmoIWMKU3dmS26672A4EeQtDzLKy7SXmfBu51JolvEKwtGA==
 
-twrnc@4.5.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/twrnc/-/twrnc-4.5.0.tgz#3eb6bd6e8222f13a0cf7c17224c3adf49e2dbeae"
-  integrity sha512-tsa5Ku2hCneBxiFqH2WUtjazvrh2rSotvsOpilr6GL4mQlqFfa0WF//UDr52toWxQxxgl0XubREGUEApZqCMpA==
+twrnc@^4.5.1:
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/twrnc/-/twrnc-4.5.1.tgz#461dc328957c259574d17e66cd7379a79c59a5ad"
+  integrity sha512-kj9agxMFKdyJJM65rxmiAg/ZG74RET5VKaJU9HCEMWZORWdYYwT16A6QS2K7mrG7a0V01j3AoEvGM4QJtYt3wg==
   dependencies:
     tailwindcss ">=2.0.0"
 
