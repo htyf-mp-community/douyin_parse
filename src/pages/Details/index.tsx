@@ -15,7 +15,7 @@ function App() {
   return <View style={tw`pt-[${top}px] pb-[${bottom}px] bg-black`}>
     {/* <Text>details: {JSON.stringify(router)}</Text> */}
     <TouchableOpacity
-      style={tw`absolute top-[${top}px] left-[10px] justify-center items-center`}
+      style={tw`absolute z-20 top-[${top}px] left-[10px] justify-center items-center`}
       onPress={() => {
         navigation.goBack();
       }}

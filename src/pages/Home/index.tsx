@@ -57,7 +57,7 @@ function App() {
             jscode: `${jsCrawler}`,
             debug: false,
             wait: 3000,
-            timeout: 1000 * 30,
+            timeout: 1000 * 10,
             callback: () => { },
           });
           try {
