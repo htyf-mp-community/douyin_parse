@@ -1,23 +1,26 @@
 import React, { useCallback, useState } from 'react';
-import { Alert, Text, View, TextInput, TouchableOpacity, Keyboard } from 'react-native';
+import { Alert, Text, View, TextInput, TouchableOpacity, Keyboard, ActivityIndicator } from 'react-native';
 import { useAppSelector } from '@/_UIHOOKS_';
 import { useNavigation } from '@react-navigation/native';
 import jssdk from '@htyf-mp/js-sdk';
 import tw from 'twrnc';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Clipboard from '@react-native-clipboard/clipboard';
 
 function App() {
-  const apps = useAppSelector(i => i.apps)
+  const { top, bottom } = useSafeAreaInsets()
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const [text, setText] = useState('');
 
   const getData = useCallback(async () => {
     return new Promise(async resolve => {
-      Keyboard.dismiss()
-      if (jssdk) {
-        setLoading(true);
-        const host = `https://www.jiexiapi.top/`;
-        const jsCrawler = `function(callback) {
+      setLoading(true);
+      try {
+        Keyboard.dismiss()
+        if (jssdk) {
+          const host = `https://www.jiexiapi.top/`;
+          const jsCrawler = `function(callback) {
           var text = '${text}'
           // 设置 section-heading 的 input 值
           const sectionHeadingInput = document.querySelector('.section-heading input')
@@ -49,63 +52,86 @@ function App() {
           // 开始轮询
           pollForElement();
         }`;
-        let data = await jssdk?.puppeteer({
-          url: `${host}`,
-          jscode: `${jsCrawler}`,
-          debug: false,
-          wait: 3000,
-          timeout: 1000 * 60,
-          callback: () => { },
-        });
-        try {
-          let obj = JSON.parse(data);
-          // @ts-ignore
-          navigation.navigate('Details', {
-            url: obj?.url || '',
-            name: obj?.name || '',
+          let data = await jssdk?.puppeteer({
+            url: `${host}`,
+            jscode: `${jsCrawler}`,
+            debug: false,
+            wait: 3000,
+            timeout: 1000 * 30,
+            callback: () => { },
           });
-        } catch (error) {
-          Alert.alert('错误')
+          try {
+            let obj = JSON.parse(data);
+            // @ts-ignore
+            navigation.navigate('Details', {
+              url: obj?.url || '',
+              name: obj?.name || '',
+            });
+          } catch (error) {
+            Alert.alert('错误')
+          }
         }
+      } catch (error) {
+
+      } finally {
+        resolve(true);
+        setLoading(false);
       }
     });
   }, [text]);
 
   return <View style={{
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     flexDirection: 'column'
   }}>
-    <Text>短视频解析下载</Text>
-    <Text>{text}</Text>
-    <View style={tw`flex-row w-full border-[1px] border-[#000] rounded-[4px] overflow-hidden`}>
-      <View style={tw`flex-grow w-0`}>
-        <TextInput
-          style={tw`w-full h-[45px] px-[6px]`}
-          placeholder='请输入分享链接'
-          onChangeText={(text) => {
-            setText(text)
+    <View style={tw`pt-[${top}px] justify-center items-center`}>
+      <Text style={tw`text-[20px]`}>短视频解析下载</Text>
+    </View>
+    <View style={tw`flex-grow justify-center items-center px-[15px] gap-[10px]`}>
+      <View style={tw`flex-row w-full border-[1px] border-[#000] rounded-[4px] overflow-hidden`}>
+        <View style={tw`flex-grow w-0`}>
+          <TextInput
+            style={tw`w-full h-[45px] px-[6px]`}
+            placeholder='请输入分享链接'
+            value={text}
+            onChangeText={(text) => {
+              setText(text)
+            }}
+            clearButtonMode="always"
+            onEndEditing={() => {
+              getData();
+            }}
+          />
+        </View>
+        <TouchableOpacity
+          disabled={loading}
+          style={tw`flex-shrink w-[50px] h-[45px] justify-center items-center`}
+          onPress={async () => {
+            const text = await Clipboard.getString();
+            setText(text);
           }}
-          clearButtonMode="always"
-          onEndEditing={() => {
+        >
+          <Text>粘贴</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          disabled={loading}
+          style={tw`flex-shrink w-[80px] h-[45px] justify-center items-center`}
+          onPress={() => {
             getData();
           }}
-        />
+        >
+          <Text>立即下载</Text>
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        style={tw`flex-shrink w-[80px] h-[45px] justify-center items-center`}
-        onPress={() => {
-          getData();
-        }}
-      >
-        <Text>立即下载</Text>
-      </TouchableOpacity>
+      <View style={tw`h-[50px] justify-center items-center`}>
+        {
+          loading ? <View style={tw`flex-row justify-center items-center gap-[5px]`}>
+            <ActivityIndicator size="small" />
+            <Text>正在解析中，请等待....</Text>
+          </View> : undefined
+        }
+      </View>
     </View>
-
-    <Text>appid: {apps.__APPID__}</Text>
-    <Text>version: {apps.__VERSION__}</Text>
-    <Text>build time: {apps.__BUILD_TIME__}</Text>
   </View>;
 }
 
