@@ -1,6 +1,6 @@
 {
   "name": "htyf-mp",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "prebuild": "npx expo prebuild --clean && npm run run:scripts",
@@ -58,6 +58,7 @@
     "@babel/preset-env": "7.25.3",
     "@babel/runtime": "7.25.0",
     "@callstack/repack": "4.2.0",
+    "@dr.pogodin/react-native-fs": "^2.28.0",
     "@expo/cli": "0.18.29",
     "@expo/metro-config": "0.18.11",
     "@expo/metro-runtime": "3.2.1",

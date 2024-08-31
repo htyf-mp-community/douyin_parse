@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react';
 import { Alert, Text, View, TextInput, TouchableOpacity, Keyboard, ActivityIndicator } from 'react-native';
-import { useAppSelector } from '@/_UIHOOKS_';
 import { useNavigation } from '@react-navigation/native';
 import jssdk from '@htyf-mp/js-sdk';
 import tw from 'twrnc';
