@@ -1,5 +1,5 @@
-import { PermissionsAndroid, Platform } from 'react-native';
-import { PERMISSIONS, request } from 'react-native-permissions';
+import { Alert, PermissionsAndroid, Platform } from 'react-native';
+import { check, PERMISSIONS, request, RESULTS } from 'react-native-permissions';
 import RNFetchBlob from 'react-native-blob-util';
 import { CameraRoll } from "@react-native-camera-roll/camera-roll";
 import md5 from 'md5';
@@ -29,8 +29,11 @@ export async function downloadVideo(url: string, name: string, callback?:(error?
   }
 
   const { config, fs } = RNFetchBlob;
-  const filePath = `${fs.dirs.DownloadDir}/video_${md5(url)}_${name}`;
-
+  if (Platform.OS === 'ios') {
+    name = name.replace(/\.mp4/gi, '.mov')
+  }
+  const filePath = `${fs.dirs.CacheDir}/video_${md5(url)}_${name}`;
+  
   config({
     fileCache: true,
     path: filePath,
@@ -48,10 +51,17 @@ export async function downloadVideo(url: string, name: string, callback?:(error?
 
 async function saveVideoToGallery(filePath: string, callback?:(error?: any, data?: any) => void) {
   try {
-    // const data = await CameraRoll.saveToCameraRoll(`file://${filePath}`, 'auto')
-    // if (data) {
-
-    // }
+    const permission = PERMISSIONS.IOS.PHOTO_LIBRARY; 
+    const checkResult = await check(permission);
+    if (checkResult === RESULTS.DENIED || checkResult === RESULTS.BLOCKED) {
+      const requestResult = await request(permission);
+      if (requestResult === RESULTS.DENIED || requestResult === RESULTS.BLOCKED) {
+        // Not granted! Do something else here.
+        Alert.alert('未获取相关权限', '请手动到设置中设置相关相册权限');
+        return;
+      }
+    }
+    CameraRoll.saveToCameraRoll(`${filePath}`, 'video')
     callback && callback(undefined, filePath);
   } catch (error) {
     callback && callback(error);

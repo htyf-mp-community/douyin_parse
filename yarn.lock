@@ -2130,10 +2130,10 @@
   dependencies:
     "@hapi/hoek" "^9.0.0"
 
-"@htyf-mp/engines@0.4.7":
-  version "0.4.7"
-  resolved "https://registry.yarnpkg.com/@htyf-mp/engines/-/engines-0.4.7.tgz#c8e49b31366647b5467c496bb9c257cc08cf222e"
-  integrity sha512-oFdtp/vyyPzFfZT+9QNYS4QF7V4hHPanIxTjAhwLG7QxFgt+jXZ++RI3gK19mmTSjhaTNWDQSSxGLsVFHMD4ew==
+"@htyf-mp/engines@^0.5.11":
+  version "0.5.11"
+  resolved "https://registry.npmmirror.com/@htyf-mp/engines/-/engines-0.5.11.tgz#4648eebdbfb6d8cea44b0e6f63e08e29a2051c49"
+  integrity sha512-Ljipm/GZ/vrc0VzLPVtQBx1MaIn8AGi1IBwVS9ieZtDRs5fLv1dH800XLQ/S2ZdUAl9lyrK74a59458bdFfkNw==
   dependencies:
     "@callstack/repack" "^3.7.0"
     "@gorhom/bottom-sheet" "^4.6.0"
@@ -2169,12 +2169,13 @@
     webpack-merge "5.10.0"
     yarn-add-no-save "1.0.3"
 
-"@htyf-mp/js-sdk@0.0.14":
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/@htyf-mp/js-sdk/-/js-sdk-0.0.14.tgz#7b37590e4d641593b9d56ca1a145c352e15d075f"
-  integrity sha512-ubUMVCoJyI0nkh9GFda4YBoL//Y/oh8V6iuZrLHq9K8zr1u7zvJBzv+Fg0lH80pmbzuR6nE8Nz6VPWriNwgjNA==
+"@htyf-mp/js-sdk@^0.0.22":
+  version "0.0.22"
+  resolved "https://registry.npmmirror.com/@htyf-mp/js-sdk/-/js-sdk-0.0.22.tgz#e87b564a3e459936ce47ca7f6ef9b269c65d8fbd"
+  integrity sha512-9DoU+BSQ2FokqWyWwXGyxY+rdkQGKgfySXPuDUjwPFDGqGk9ZG7S2G8DE6aQu61lpkrHHISogHYYZ0XlKzZb/g==
   dependencies:
     "@fingerprintjs/fingerprintjs" "^3.3.3"
+    "@react-native-async-storage/async-storage" "^2.0.0"
     "@types/qs" "^6.9.7"
     axios "^0.26.1"
     dayjs "^1.11.0"
@@ -2755,7 +2756,7 @@
   dependencies:
     "@babel/runtime" "^7.18.0"
 
-"@react-native-async-storage/async-storage@1.24.0", "@react-native-async-storage/async-storage@~1.17.7":
+"@react-native-async-storage/async-storage@1.24.0", "@react-native-async-storage/async-storage@^2.0.0", "@react-native-async-storage/async-storage@~1.17.7":
   version "1.24.0"
   resolved "https://registry.npmmirror.com/@react-native-async-storage/async-storage/-/async-storage-1.24.0.tgz#888efbc62a26f7d9464b32f4d3027b7f2771999b"
   integrity sha512-W4/vbwUOYOjco0x3toB8QCr7EjIP6nE9G7o8PMguvvjYT5Awg09lyV4enACRx4s++PPulBiBSjL0KTFx2u0Z/g==
